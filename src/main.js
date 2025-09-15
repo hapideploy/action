@@ -28,15 +28,9 @@ export async function run() {
 
     // Install the hapideploy library
     // TODO: Check if python & pip are available.
-    const child = cp.spawn('pip install hapideploy')
+    const output = cp.execSync('pip install hapideploy', { encoding: 'utf-8' })
 
-    child.stdout.on('data', (data) => {
-      console.log(`${data}\n`)
-    })
-
-    child.stderr.on('data', (data) => {
-      console.error(`${data}\n`)
-    })
+    console.log(output)
   } catch (error) {
     // Fail the workflow run if an error occurs
     if (error instanceof Error) core.setFailed(error.message)
