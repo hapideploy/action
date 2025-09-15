@@ -37,7 +37,7 @@ describe('main.js', () => {
     jest.resetAllMocks()
   })
 
-  it('Create a remotes.yml file', async () => {
+  it('Create an inventory.yml file', async () => {
     await run()
 
     expect(fs.existsSync('./identity_file')).toBe(true)
