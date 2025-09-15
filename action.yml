@@ -1,23 +1,34 @@
-name: The name of your action here
-description: Provide a description here
-author: Your name or organization here
+name: 'hapideploy/action'
+description: Ship your applications with HapiDeploy
+author: 'Quynh Nguyen <seriquynh@gmail.com>'
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
-  icon: heart
-  color: red
+  icon: play
+  color: blue
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: Your input description here
+  host:
+    description: The hostname or IP address of your server.
     required: true
-    default: '1000'
+    default: 192.168.33.11
+  port:
+    description: The SSH port of your server.
+    required: false
+    default: '22'
+  user:
+    description: The system user of your server.
+    required: true
+    default: vagrant
+  identity_key:
+    description: The identity key string.
+    required: true
 
 # Define your outputs here.
-outputs:
-  time:
-    description: Your output description here
+# outputs:
+#   time:
+#     description: Your output description here
 
 runs:
   using: node24
