@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-import { wait } from './wait.js'
+import fs from 'fs'
 
 /**
  * The main function for the action.
@@ -8,18 +8,20 @@ import { wait } from './wait.js'
  */
 export async function run() {
   try {
-    const ms = core.getInput('milliseconds')
+    const host = core.getInput('host')
+    const port = core.getInput('port')
+    const user = core.getInput('user')
+    const identityKey = core.getInput('identity_key')
 
-    // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    fs.writeFileSync('./identity_file', identityKey)
+    fs.chmodSync('./identity_file', '600')
 
-    // Log the current timestamp, wait, then log the new timestamp
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    // Set outputs for other workflow steps to use
-    core.setOutput('time', new Date().toTimeString())
+    fs.writeFileSync('./remotes.yml', 'remotes:\n')
+    fs.appendFileSync('./remotes.yml', '  app-server:\n')
+    fs.appendFileSync('./remotes.yml', `    host: ${host}\n`)
+    fs.appendFileSync('./remotes.yml', `    port: ${port}\n`)
+    fs.appendFileSync('./remotes.yml', `    user: ${user}\n`)
+    fs.appendFileSync('./remotes.yml', `    identity_file: ./identity_file\n`)
   } catch (error) {
     // Fail the workflow run if an error occurs
     if (error instanceof Error) core.setFailed(error.message)
