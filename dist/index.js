@@ -25,7 +25,7 @@ import require$$1$3 from 'url';
 import require$$3$1 from 'zlib';
 import require$$6 from 'string_decoder';
 import require$$0$9 from 'diagnostics_channel';
-import require$$2$2 from 'child_process';
+import cp from 'child_process';
 import require$$6$1 from 'timers';
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
@@ -26090,7 +26090,7 @@ function requireToolrunner () {
 	toolrunner.argStringToArray = toolrunner.ToolRunner = void 0;
 	const os = __importStar(require$$0);
 	const events = __importStar(require$$4);
-	const child = __importStar(require$$2$2);
+	const child = __importStar(cp);
 	const path = __importStar(require$$1$4);
 	const io = __importStar(requireIo());
 	const ioUtil = __importStar(requireIoUtil());
@@ -27270,11 +27270,20 @@ async function run() {
     fs.appendFileSync('./inventory.yml', `    user: ${user}\n`);
     fs.appendFileSync('./inventory.yml', `    identity_file: ./identity_file\n`);
 
-    // Install the hapideploy library
-    // TODO: Check if python & pip are available.
-    const output = require$$2$2.execSync('pip install hapideploy', { encoding: 'utf-8' });
+    // Check if python & pip are available.
+    if (cp.execSync('which pip', { encoding: 'utf-8' }).trim() !== '') {
+      // Install the hapideploy library
+      const output = cp.execSync('pip install hapideploy', {
+        encoding: 'utf-8'
+      });
 
-    console.log(output);
+      console.log(output);
+    } else {
+      console.info('pip is not available, you need to install it first.');
+      console.info(
+        'For example, you can use the setup-python action to install Python and pip.'
+      );
+    }
   } catch (error) {
     // Fail the workflow run if an error occurs
     if (error instanceof Error) coreExports.setFailed(error.message);

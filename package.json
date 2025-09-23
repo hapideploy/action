@@ -1,20 +1,20 @@
 {
-  "name": "javascript-action",
-  "description": "GitHub Actions JavaScript Template",
+  "name": "hapideploy-action",
+  "description": "HapiDeploy GitHub Action",
   "version": "0.0.0",
-  "author": "",
+  "author": "Quynh Nguyen <seriquynh@gmail.com>",
   "type": "module",
   "private": true,
-  "homepage": "https://github.com/actions/javascript-action#readme",
+  "homepage": "https://github.com/hapideploy/action#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/javascript-action.git"
+    "url": "git+https://github.com/hapideploy/action.git"
   },
   "bugs": {
-    "url": "https://github.com/actions/javascript-action/issues"
+    "url": "https://github.com/hapideploy/action/issues"
   },
   "keywords": [
-    "actions"
+    "hapideploy"
   ],
   "exports": {
     ".": "./dist/index.js"

@@ -26,11 +26,20 @@ export async function run() {
     fs.appendFileSync('./inventory.yml', `    user: ${user}\n`)
     fs.appendFileSync('./inventory.yml', `    identity_file: ./identity_file\n`)
 
-    // Install the hapideploy library
-    // TODO: Check if python & pip are available.
-    const output = cp.execSync('pip install hapideploy', { encoding: 'utf-8' })
+    // Check if python & pip are available.
+    if (cp.execSync('which pip', { encoding: 'utf-8' }).trim() !== '') {
+      // Install the hapideploy library
+      const output = cp.execSync('pip install hapideploy', {
+        encoding: 'utf-8'
+      })
 
-    console.log(output)
+      console.log(output)
+    } else {
+      console.info('pip is not available, you need to install it first.')
+      console.info(
+        'For example, you can use the setup-python action to install Python and pip.'
+      )
+    }
   } catch (error) {
     // Fail the workflow run if an error occurs
     if (error instanceof Error) core.setFailed(error.message)

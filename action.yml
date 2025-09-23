@@ -12,7 +12,6 @@ inputs:
   host:
     description: The hostname or IP address of your server.
     required: true
-    default: 192.168.33.11
   port:
     description: The SSH port of your server.
     required: false
@@ -20,9 +19,8 @@ inputs:
   user:
     description: The system user of your server.
     required: true
-    default: vagrant
-  identity_key:
-    description: The identity key string.
+  identity-key:
+    description: The string of identity key.
     required: true
 
 # Define your outputs here.
