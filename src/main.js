@@ -12,7 +12,7 @@ export async function run() {
     const host = core.getInput('host')
     const port = core.getInput('port')
     const user = core.getInput('user')
-    const identityKey = core.getInput('identity_key')
+    const identityKey = core.getInput('identity-key')
 
     // Create the identity_file file
     fs.writeFileSync('./identity_file', identityKey)

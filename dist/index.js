@@ -27256,7 +27256,7 @@ async function run() {
     const host = coreExports.getInput('host');
     const port = coreExports.getInput('port');
     const user = coreExports.getInput('user');
-    const identityKey = coreExports.getInput('identity_key');
+    const identityKey = coreExports.getInput('identity-key');
 
     // Create the identity_file file
     fs.writeFileSync('./identity_file', identityKey);
